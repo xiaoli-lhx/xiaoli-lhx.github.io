@@ -1,1 +1,0 @@
-[{"id":0,"href":"/%E8%AE%A1%E7%BD%91/udptcp/","title":"UDP与TCP协议","section":"计网","content":"\rUDP与TCP协议\r#\rUDP协议\r#\rUDP（User Datagram Protocol，用户数据报协议）是一种无连接的传输层协议，它不保证数据可靠到达，也不保证数据顺序到达。它只提供一种简单的面向数据报的通信方式。\n"}]
