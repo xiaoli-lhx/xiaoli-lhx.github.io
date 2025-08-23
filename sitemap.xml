@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:7667/</loc>
+    <loc>http://localhost:3775/</loc>
     <lastmod>2025-08-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:7667/tcp/</loc>
+    <loc>http://localhost:3775/%E8%AE%A1%E7%BD%91/udptcp/</loc>
     <lastmod>2025-08-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:7667/tcp/udptcp/</loc>
+    <loc>http://localhost:3775/%E8%AE%A1%E7%BD%91/</loc>
     <lastmod>2025-08-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:7667/categories/</loc>
+    <loc>http://localhost:3775/categories/</loc>
   </url><url>
-    <loc>http://localhost:7667/tags/</loc>
+    <loc>http://localhost:3775/tags/</loc>
   </url>
 </urlset>
