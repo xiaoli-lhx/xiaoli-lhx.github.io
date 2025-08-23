@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TCP on Blog</title>
+    <link>http://localhost:7667/tcp/</link>
+    <description>Recent content in TCP on Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 23 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:7667/tcp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UDP与TCP协议</title>
+      <link>http://localhost:7667/tcp/udptcp/</link>
+      <pubDate>Sat, 23 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:7667/tcp/udptcp/</guid>
+      <description>&lt;h1 id=&#34;udp与tcp协议&#34;&gt;&#xD;&#xA;  UDP与TCP协议&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#udp%e4%b8%8etcp%e5%8d%8f%e8%ae%ae&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;udp协议&#34;&gt;&#xD;&#xA;  UDP协议&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#udp%e5%8d%8f%e8%ae%ae&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;UDP（User Datagram Protocol，用户数据报协议）是一种无连接的传输层协议，它不保证数据可靠到达，也不保证数据顺序到达。它只提供一种简单的面向数据报的通信方式。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

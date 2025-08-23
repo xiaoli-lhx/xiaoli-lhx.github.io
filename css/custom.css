@@ -1,0 +1,34 @@
+/*!* 将 flex 布局应用到 body 标签 *!*/
+/*body {*/
+/*    display: flex;*/
+/*    !*flex-direction: column;*!*/
+/*    min-height: 100vh;*/
+/*}*/
+
+/*!* 让 main 元素自动伸展，填满所有可用空间 *!*/
+/*main.container {*/
+/*    flex-grow: 1;*/
+/*}*/
+
+
+/* --- 最终布局修正代码 --- */
+
+/* 1. 将 body 设为 flex 容器，并设置为“纵向排列” */
+body {
+    display: flex;
+    flex-direction: column; /* <-- 这一行是解决问题的关键 */
+    min-height: 100vh;
+}
+
+/* 2. 强制内部页面水平伸展 */
+.book-page {
+    flex-grow: 1;
+}
+
+/* 3. 统一所有页面的主容器宽度、让其垂直伸展并居中 */
+main.container {
+    max-width: 1200px;
+    width: 100%;
+    flex-grow: 1;
+    margin: 0 auto; /* 新增：让主内容区在页面上水平居中 */
+}
