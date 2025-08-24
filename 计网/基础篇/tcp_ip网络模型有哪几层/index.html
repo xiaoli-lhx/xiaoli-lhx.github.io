@@ -4,33 +4,50 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="
-  UDP与TCP协议
+  TCP/IP网络模型有哪几层？
   
   #
   
 
 
-  UDP协议
+  1. 应用层
   
   #
   
 
-UDP（User Datagram Protocol，用户数据报协议）是一种无连接的传输层协议，它不保证数据可靠到达，也不保证数据顺序到达。它只提供一种简单的面向数据报的通信方式。">
+
+  2. 传输层
+  
+  #
+  
+
+
+  3. 网络层
+  
+  #
+  
+
+
+  4. 网络接口层
+  
+  #
+  
+">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/">
   <meta property="og:site_name" content="Blog">
-  <meta property="og:title" content="TCP篇">
-  <meta property="og:description" content="UDP与TCP协议#UDP协议#UDP（User Datagram Protocol，用户数据报协议）是一种无连接的传输层协议，它不保证数据可靠到达，也不保证数据顺序到达。它只提供一种简单的面向数据报的通信方式。">
+  <meta property="og:title" content="TCP/IP网络模型有哪几层？">
+  <meta property="og:description" content="TCP/IP网络模型有哪几层？#1. 应用层#2. 传输层#3. 网络层#4. 网络接口层#">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="计网">
-    <meta property="article:published_time" content="2025-08-23T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-08-23T00:00:00+00:00">
-<title>TCP篇 | Blog</title>
+    <meta property="article:published_time" content="2025-08-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-24T00:00:00+00:00">
+<title>TCP/IP网络模型有哪几层？ | Blog</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/">
+<link rel="canonical" href="https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/">
 <link rel="stylesheet" href="/book.min.ce742184041b67827be505801d71b6b40c09608dfb292033ea54dbbc1d71a174.css" integrity="sha256-znQhhAQbZ4J75QWAHXG2tAwJYI37KSAz6lTbvB1xoXQ=" crossorigin="anonymous">
   <script defer src="/fuse.min.js"></script>
   <script defer src="/en.search.min.fd44ca0c443a2caa205c2be2c4feeaeecf26b288366583b570077182875c9ad7.js" integrity="sha256-/UTKDEQ6LKogXCvixP7q7s8msog2ZYO1cAdxgodcmtc=" crossorigin="anonymous"></script>
@@ -116,7 +133,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/" class="">TCP/IP网络模型有哪几层？</a>
+    <a href="/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/" class="active">TCP/IP网络模型有哪几层？</a>
   
 
         </li>
@@ -134,7 +151,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/" class="active">TCP篇</a>
+    <a href="/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/" class="">TCP篇</a>
   
 
         </li>
@@ -181,7 +198,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>TCP篇</h3>
+  <h3>TCP/IP网络模型有哪几层？</h3>
 
   <label for="toc-control">
     
@@ -197,7 +214,10 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#udp协议">UDP协议</a></li>
+    <li><a href="#1-应用层">1. 应用层</a></li>
+    <li><a href="#2-传输层">2. 传输层</a></li>
+    <li><a href="#3-网络层">3. 网络层</a></li>
+    <li><a href="#4-网络接口层">4. 网络接口层</a></li>
   </ul>
 </nav>
 
@@ -210,19 +230,36 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h1 id="udp与tcp协议">
-  UDP与TCP协议
+  <article class="markdown book-article"><h1 id="tcpip网络模型有哪几层">
+  TCP/IP网络模型有哪几层？
   
-  <a class="anchor" href="#udp%e4%b8%8etcp%e5%8d%8f%e8%ae%ae">#</a>
+  <a class="anchor" href="#tcpip%e7%bd%91%e7%bb%9c%e6%a8%a1%e5%9e%8b%e6%9c%89%e5%93%aa%e5%87%a0%e5%b1%82">#</a>
   
 </h1>
-<h2 id="udp协议">
-  UDP协议
+<h2 id="1-应用层">
+  1. 应用层
   
-  <a class="anchor" href="#udp%e5%8d%8f%e8%ae%ae">#</a>
+  <a class="anchor" href="#1-%e5%ba%94%e7%94%a8%e5%b1%82">#</a>
   
 </h2>
-<p>UDP（User Datagram Protocol，用户数据报协议）是一种无连接的传输层协议，它不保证数据可靠到达，也不保证数据顺序到达。它只提供一种简单的面向数据报的通信方式。</p>
+<h2 id="2-传输层">
+  2. 传输层
+  
+  <a class="anchor" href="#2-%e4%bc%a0%e8%be%93%e5%b1%82">#</a>
+  
+</h2>
+<h2 id="3-网络层">
+  3. 网络层
+  
+  <a class="anchor" href="#3-%e7%bd%91%e7%bb%9c%e5%b1%82">#</a>
+  
+</h2>
+<h2 id="4-网络接口层">
+  4. 网络接口层
+  
+  <a class="anchor" href="#4-%e7%bd%91%e7%bb%9c%e6%8e%a5%e5%8f%a3%e5%b1%82">#</a>
+  
+</h2>
 </article>
  
       
@@ -249,13 +286,13 @@ https://github.com/alex-shpak/hugo-book
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/" class="flex align-center book-icon">
-        <img src="/svg/backward.svg" class="book-icon" alt="Previous" title="TCP/IP网络模型有哪几层？" />
-        <span>TCP/IP网络模型有哪几层？</span>
-      </a>
-    
     </span>
     <span>
+    
+      <a href="/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/" class="flex align-center book-icon">
+        <span>TCP篇</span>
+        <img src="/svg/forward.svg" class="book-icon" alt="Next" title="TCP篇" />
+      </a>
     
     </span>
   </div>
@@ -289,7 +326,10 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#udp协议">UDP协议</a></li>
+    <li><a href="#1-应用层">1. 应用层</a></li>
+    <li><a href="#2-传输层">2. 传输层</a></li>
+    <li><a href="#3-网络层">3. 网络层</a></li>
+    <li><a href="#4-网络接口层">4. 网络接口层</a></li>
   </ul>
 </nav>
 

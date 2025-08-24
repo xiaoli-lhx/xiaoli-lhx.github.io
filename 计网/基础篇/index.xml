@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog</title>
-    <link>https://xiaoli-lhx.github.io/</link>
-    <description>Recent content on Blog</description>
+    <title>基础篇 on Blog</title>
+    <link>https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+    <description>Recent content in 基础篇 on Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sun, 24 Aug 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://xiaoli-lhx.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TCP/IP网络模型有哪几层？</title>
       <link>https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/</link>
       <pubDate>Sun, 24 Aug 2025 00:00:00 +0000</pubDate>
       <guid>https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/</guid>
       <description>&lt;h1 id=&#34;tcpip网络模型有哪几层&#34;&gt;&#xD;&#xA;  TCP/IP网络模型有哪几层？&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#tcpip%e7%bd%91%e7%bb%9c%e6%a8%a1%e5%9e%8b%e6%9c%89%e5%93%aa%e5%87%a0%e5%b1%82&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;1-应用层&#34;&gt;&#xD;&#xA;  1. 应用层&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#1-%e5%ba%94%e7%94%a8%e5%b1%82&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;h2 id=&#34;2-传输层&#34;&gt;&#xD;&#xA;  2. 传输层&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#2-%e4%bc%a0%e8%be%93%e5%b1%82&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;h2 id=&#34;3-网络层&#34;&gt;&#xD;&#xA;  3. 网络层&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#3-%e7%bd%91%e7%bb%9c%e5%b1%82&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;h2 id=&#34;4-网络接口层&#34;&gt;&#xD;&#xA;  4. 网络接口层&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#4-%e7%bd%91%e7%bb%9c%e6%8e%a5%e5%8f%a3%e5%b1%82&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h2&gt;</description>
-    </item>
-    <item>
-      <title>TCP篇</title>
-      <link>https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/</link>
-      <pubDate>Sat, 23 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/</guid>
-      <description>&lt;h1 id=&#34;udp与tcp协议&#34;&gt;&#xD;&#xA;  UDP与TCP协议&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#udp%e4%b8%8etcp%e5%8d%8f%e8%ae%ae&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;udp协议&#34;&gt;&#xD;&#xA;  UDP协议&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#udp%e5%8d%8f%e8%ae%ae&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;UDP（User Datagram Protocol，用户数据报协议）是一种无连接的传输层协议，它不保证数据可靠到达，也不保证数据顺序到达。它只提供一种简单的面向数据报的通信方式。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
