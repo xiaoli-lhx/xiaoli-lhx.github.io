@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Go语言基础
+  
+  #
+  
+
+8.26 已完成：
+
+ go的特点与优势
+ 包管理
+ 实现重载
+ 实现继承
+
+TODO：
+
+ 实现多态
+ 切片与数组区别
+ slice相关
+ struct与class
+ 错误处理机制
+
+
+  1. 和Java对比，介绍一下go语言的优势和特点
+  
+  #
+  
+
+考点：对编程语言的理解
+难度：简单
+总的来说，Go语言在性能、并发处理、部署和开发效率上都有其独特的优势，尤其适合网络服务和云计算领域
+
+语法简洁：Go语言的语法非常简洁，没有类和继承等概念，代码易于维护和读写
+编译型语言：Go语言是一种编译型语言，编译成机器码直接运行，且编译速度很快
+高性能：Go语言的执行速度接近于C/C&#43;&#43;，速度比Java快
+并发支持：Go语言的并发模型是基于goroutine和channel，使得并发编程变的简单高效，而Java的多线程模型相对较为复杂一些
+内存管理：Go语言拥有自己的垃圾回收机制，简化了内存管理
+部署简单：Go程序编译后生成单一的可执行文件，部署非常简单
+标准库丰富：Go拥有高质量的标准库，涵盖网络、加密、数据结构等方面
+工具链：Go有一套强大的工具链，如用于格式化代码的gofmt、用于性能分析的pprof
+静态类型：Go是静态类型语言，有助于在编译时捕捉错误
+跨平台编译：Go支持跨平台编译，可以很方便地为不同操作系统构建应用程序
+
+
+  2. go包管理的方式有哪些？
+  
+  #
+  
+
+考点：包管理
+难度：简单
+Go语言的包管理最开始是GOPATH的方式，每个项目都需要放在GOPATH的下面，Go会从GOPATH的src目录寻找所有的包。
+现在主要用Go Modules，官方从1.11版本开始引入，成了官方推荐的包管理方式。不再依赖GOPATH,可以直接在任何地方创建项目，通过go.mod文件来管理依赖。
+
+  3. Go支持重载吗？如何在Go中实现一个方法的&quot;重载&quot;？
+  
+  #
+  
+
+考点：方法重载
+难度：中等
+Go 不支持函数/方法的重载，你不能在同一个作用域中定义多个函数名相同但参数不同的函数
+会报编译错误：“（function name） redeclared in this block”。
+可以通过以下方式模拟：
+
+使用接口&#43;类型断言
+
+func Add(a,b interface{}) interface{} {
+    switch aVal := a.(type) {
+    case int:
+        if bVal,ok:=b.(int);ok{
+            return aVal&#43;bVal
+        }
+    case float64:
+        if bVal,ok:=b.(float64);ok{
+            return aVal&#43;bVal
+        }
+    }
+    return nil
+}
+
+使用组合&#43;接口
+
+不同的方法封装在不同的嵌套结构中，外部选择性调用这些方法">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://xiaoli-lhx.github.io/go%E8%AF%AD%E8%A8%80/go%E5%9F%BA%E7%A1%80/go%E5%9F%BA%E7%A1%80/">
+  <meta property="og:site_name" content="Blog">
+  <meta property="og:title" content="Go语言基础">
+  <meta property="og:description" content="Go语言基础#8.26 已完成：
+go的特点与优势 包管理 实现重载 实现继承 TODO：
+实现多态 切片与数组区别 slice相关 struct与class 错误处理机制 1. 和Java对比，介绍一下go语言的优势和特点#考点：对编程语言的理解
+难度：简单
+总的来说，Go语言在性能、并发处理、部署和开发效率上都有其独特的优势，尤其适合网络服务和云计算领域
+语法简洁：Go语言的语法非常简洁，没有类和继承等概念，代码易于维护和读写 编译型语言：Go语言是一种编译型语言，编译成机器码直接运行，且编译速度很快 高性能：Go语言的执行速度接近于C/C&#43;&#43;，速度比Java快 并发支持：Go语言的并发模型是基于goroutine和channel，使得并发编程变的简单高效，而Java的多线程模型相对较为复杂一些 内存管理：Go语言拥有自己的垃圾回收机制，简化了内存管理 部署简单：Go程序编译后生成单一的可执行文件，部署非常简单 标准库丰富：Go拥有高质量的标准库，涵盖网络、加密、数据结构等方面 工具链：Go有一套强大的工具链，如用于格式化代码的gofmt、用于性能分析的pprof 静态类型：Go是静态类型语言，有助于在编译时捕捉错误 跨平台编译：Go支持跨平台编译，可以很方便地为不同操作系统构建应用程序 2. go包管理的方式有哪些？#考点：包管理
+难度：简单
+Go语言的包管理最开始是GOPATH的方式，每个项目都需要放在GOPATH的下面，Go会从GOPATH的src目录寻找所有的包。
+现在主要用Go Modules，官方从1.11版本开始引入，成了官方推荐的包管理方式。不再依赖GOPATH,可以直接在任何地方创建项目，通过go.mod文件来管理依赖。
+3. Go支持重载吗？如何在Go中实现一个方法的&#34;重载&#34;？#考点：方法重载
+难度：中等
+Go 不支持函数/方法的重载，你不能在同一个作用域中定义多个函数名相同但参数不同的函数
+会报编译错误：“（function name） redeclared in this block”。
+可以通过以下方式模拟：
+使用接口&#43;类型断言 func Add(a,b interface{}) interface{} { switch aVal := a.(type) { case int: if bVal,ok:=b.(int);ok{ return aVal&#43;bVal } case float64: if bVal,ok:=b.(float64);ok{ return aVal&#43;bVal } } return nil } 使用组合&#43;接口 不同的方法封装在不同的嵌套结构中，外部选择性调用这些方法">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="go语言">
+    <meta property="article:published_time" content="2025-08-26T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-26T00:00:00+00:00">
+<title>Go语言基础 | Blog</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://xiaoli-lhx.github.io/go%E8%AF%AD%E8%A8%80/go%E5%9F%BA%E7%A1%80/go%E5%9F%BA%E7%A1%80/">
+<link rel="stylesheet" href="/book.min.ce742184041b67827be505801d71b6b40c09608dfb292033ea54dbbc1d71a174.css" integrity="sha256-znQhhAQbZ4J75QWAHXG2tAwJYI37KSAz6lTbvB1xoXQ=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.fc7253067cdb6b7f960dd2f0bc97eb30921d63bf298eea2d8894ddad929c5d04.js" integrity="sha256-/HJTBnzba3&#43;WDdLwvJfrMJIdY78pjuotiJTdrZKcXQQ=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body dir="ltr" class="book-kind-page book-type-go语言">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Blog</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ece2958ce52732215c05ee4fd8e37c4b" class="toggle"  />
+    <label for="section-ece2958ce52732215c05ee4fd8e37c4b" class="flex">
+      <a role="button" class="flex-auto ">计网</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998acf51f5f0061bff7de261b935769" class="toggle"  />
+    <label for="section-2998acf51f5f0061bff7de261b935769" class="flex">
+      <a role="button" class="flex-auto ">基础篇</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/" class="">TCP/IP网络模型有哪几层？</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-663286454c4cd9ce11659bd2eb980fee" class="toggle"  />
+    <label for="section-663286454c4cd9ce11659bd2eb980fee" class="flex">
+      <a role="button" class="flex-auto ">TCP篇</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/tcp%E7%AF%87/" class="">TCP篇</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-67b43edca1c269c7246a75d4308d3b1b" class="toggle" checked />
+    <label for="section-67b43edca1c269c7246a75d4308d3b1b" class="flex">
+      <a role="button" class="flex-auto ">Go语言</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-770547d614dac05a040d1a3ecfcd842c" class="toggle" checked />
+    <label for="section-770547d614dac05a040d1a3ecfcd842c" class="flex">
+      <a role="button" class="flex-auto ">Go基础</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/go%E8%AF%AD%E8%A8%80/go%E5%9F%BA%E7%A1%80/go%E5%9F%BA%E7%A1%80/" class="active">Go语言基础</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Go语言基础</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-和java对比介绍一下go语言的优势和特点">1. 和Java对比，介绍一下go语言的优势和特点</a></li>
+    <li><a href="#2-go包管理的方式有哪些">2. go包管理的方式有哪些？</a></li>
+    <li><a href="#3-go支持重载吗如何在go中实现一个方法的重载">3. Go支持重载吗？如何在Go中实现一个方法的&quot;重载&quot;？</a></li>
+    <li><a href="#4-go语言中如何实现继承">4. Go语言中如何实现继承？</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="go语言基础">
+  Go语言基础
+  
+  <a class="anchor" href="#go%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80">#</a>
+  
+</h1>
+<p>8.26 已完成：</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> go的特点与优势</li>
+<li><input checked="" disabled="" type="checkbox"> 包管理</li>
+<li><input checked="" disabled="" type="checkbox"> 实现重载</li>
+<li><input checked="" disabled="" type="checkbox"> 实现继承</li>
+</ul>
+<p>TODO：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 实现多态</li>
+<li><input disabled="" type="checkbox"> 切片与数组区别</li>
+<li><input disabled="" type="checkbox"> slice相关</li>
+<li><input disabled="" type="checkbox"> struct与class</li>
+<li><input disabled="" type="checkbox"> 错误处理机制</li>
+</ul>
+<h2 id="1-和java对比介绍一下go语言的优势和特点">
+  1. 和Java对比，介绍一下go语言的优势和特点
+  
+  <a class="anchor" href="#1-%e5%92%8cjava%e5%af%b9%e6%af%94%e4%bb%8b%e7%bb%8d%e4%b8%80%e4%b8%8bgo%e8%af%ad%e8%a8%80%e7%9a%84%e4%bc%98%e5%8a%bf%e5%92%8c%e7%89%b9%e7%82%b9">#</a>
+  
+</h2>
+<p><strong>考点</strong>：对编程语言的理解</p>
+<p><strong>难度</strong>：简单</p>
+<p>总的来说，Go语言在性能、并发处理、部署和开发效率上都有其独特的优势，尤其适合网络服务和云计算领域</p>
+<ul>
+<li>语法简洁：Go语言的语法非常简洁，没有类和继承等概念，代码易于维护和读写</li>
+<li>编译型语言：Go语言是一种编译型语言，编译成机器码直接运行，且编译速度很快</li>
+<li>高性能：Go语言的执行速度接近于C/C++，速度比Java快</li>
+<li>并发支持：Go语言的并发模型是基于<code>goroutine</code>和<code>channel</code>，使得并发编程变的简单高效，而Java的多线程模型相对较为复杂一些</li>
+<li>内存管理：Go语言拥有自己的垃圾回收机制，简化了内存管理</li>
+<li>部署简单：Go程序编译后生成单一的可执行文件，部署非常简单</li>
+<li>标准库丰富：Go拥有高质量的标准库，涵盖网络、加密、数据结构等方面</li>
+<li>工具链：Go有一套强大的工具链，如用于格式化代码的<code>gofmt</code>、用于性能分析的<code>pprof</code></li>
+<li>静态类型：Go是静态类型语言，有助于在编译时捕捉错误</li>
+<li>跨平台编译：Go支持跨平台编译，可以很方便地为不同操作系统构建应用程序</li>
+</ul>
+<h2 id="2-go包管理的方式有哪些">
+  2. go包管理的方式有哪些？
+  
+  <a class="anchor" href="#2-go%e5%8c%85%e7%ae%a1%e7%90%86%e7%9a%84%e6%96%b9%e5%bc%8f%e6%9c%89%e5%93%aa%e4%ba%9b">#</a>
+  
+</h2>
+<p><strong>考点</strong>：包管理</p>
+<p><strong>难度</strong>：简单</p>
+<p>Go语言的包管理最开始是<code>GOPATH</code>的方式，每个项目都需要放在<code>GOPATH</code>的下面，Go会从<code>GOPATH</code>的<code>src</code>目录寻找所有的包。</p>
+<p>现在主要用<code>Go Modules</code>，官方从1.11版本开始引入，成了官方推荐的包管理方式。不再依赖<code>GOPATH</code>,可以直接在任何地方创建项目，通过<code>go.mod</code>文件来管理依赖。</p>
+<h2 id="3-go支持重载吗如何在go中实现一个方法的重载">
+  3. Go支持重载吗？如何在Go中实现一个方法的&quot;重载&quot;？
+  
+  <a class="anchor" href="#3-go%e6%94%af%e6%8c%81%e9%87%8d%e8%bd%bd%e5%90%97%e5%a6%82%e4%bd%95%e5%9c%a8go%e4%b8%ad%e5%ae%9e%e7%8e%b0%e4%b8%80%e4%b8%aa%e6%96%b9%e6%b3%95%e7%9a%84%e9%87%8d%e8%bd%bd">#</a>
+  
+</h2>
+<p><strong>考点</strong>：方法重载</p>
+<p><strong>难度</strong>：中等</p>
+<p>Go 不支持函数/方法的重载，你<strong>不能在同一个作用域中定义多个函数名相同但参数不同的函数</strong></p>
+<p>会报编译错误：<strong>“（function name） redeclared in this block”</strong>。</p>
+<p>可以通过以下方式<strong>模拟</strong>：</p>
+<ul>
+<li>使用接口+类型断言</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">interface</span>{} {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">aVal</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>.(<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">int</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">bVal</span>,<span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">b</span>.(<span style="color:#66d9ef">int</span>);<span style="color:#a6e22e">ok</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">aVal</span><span style="color:#f92672">+</span><span style="color:#a6e22e">bVal</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">float64</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">bVal</span>,<span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">b</span>.(<span style="color:#66d9ef">float64</span>);<span style="color:#a6e22e">ok</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">aVal</span><span style="color:#f92672">+</span><span style="color:#a6e22e">bVal</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>使用组合+接口</li>
+</ul>
+<p>不同的方法封装在不同的嵌套结构中，外部选择性调用这些方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 定义包含不同方法的结构体</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StringPrinter</span> <span style="color:#66d9ef">struct</span>{}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">StringPrinter</span>) <span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;String:&#34;</span>, <span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IntPrinter</span> <span style="color:#66d9ef">struct</span>{}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">IntPrinter</span>) <span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Int:&#34;</span>, <span style="color:#a6e22e">n</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 组合成一个“统一接口”</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Printer</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">StringPrinter</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">IntPrinter</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Printer</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#e6db74">&#34;hello&#34;</span>) <span style="color:#75715e">// 调用 StringPrinter.Print</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#ae81ff">42</span>)      <span style="color:#75715e">// 调用 IntPrinter.Print</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>使用范型（1.18版本后）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Add</span>[<span style="color:#a6e22e">T</span> <span style="color:#66d9ef">int</span> | <span style="color:#66d9ef">float64</span>](<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span> <span style="color:#a6e22e">T</span>) <span style="color:#a6e22e">T</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>))       <span style="color:#75715e">// 3</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">2.2</span>))   <span style="color:#75715e">// 3.3</span>
+</span></span></code></pre></div><p>泛型是 Go 实现“重载”的最佳选择，因为它是<strong>类型安全</strong>的，且<strong>有编译时检查</strong></p>
+<p><strong>拓展回答</strong>：</p>
+<ol>
+<li>什么是类型安全？</li>
+</ol>
+<p>程序中的<strong>变量只能用于其所属类型允许的操作</strong>，不允许发生不合理的类型转换或操作。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">好处</th>
+          <th style="text-align: center">说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">防止错误</td>
+          <td style="text-align: center">避免对类型使用不合法的操作（如把字符串当成数字）</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">提高可读性</td>
+          <td style="text-align: center">变量类型明确，代码更清晰</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">增强 IDE 智能提示</td>
+          <td style="text-align: center">自动补全和类型跳转依赖类型信息</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">更好的性能优化</td>
+          <td style="text-align: center">编译器可以做更激进的优化（例如内联、分配优化等）</td>
+      </tr>
+  </tbody>
+</table>
+<ol start="2">
+<li>什么是编译时检查？</li>
+</ol>
+<p>编译器在代码编译阶段就会检查语法、类型、常量表达式、未使用变量等错误。</p>
+<ol start="3">
+<li>静态类型与编译时检查</li>
+</ol>
+<p>静态类型语言中，<strong>变量的类型在编译时就确定</strong>，不能随意更改。动态类型语言中，<strong>变量的类型在运行时才决定</strong>，变量可以赋不同类型的值。</p>
+<ul>
+<li>如果语言是<strong>静态类型</strong>的，通常<strong>就支持编译时类型检查</strong>；</li>
+<li>如果语言是<strong>动态类型</strong>的，通常类型检查只能在运行时进行</li>
+</ul>
+<p>重写（overriding）在 OOP 领域中是指子类重写父类的方法，在 go 中称为方法的覆盖（<strong>当一个嵌套结构体（被组合的 struct）和外部结构体拥有相同方法名时，外部的方法会覆盖嵌套结构体的方法。</strong>）</p>
+<h2 id="4-go语言中如何实现继承">
+  4. Go语言中如何实现继承？
+  
+  <a class="anchor" href="#4-go%e8%af%ad%e8%a8%80%e4%b8%ad%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e7%bb%a7%e6%89%bf">#</a>
+  
+</h2>
+<p><strong>考点</strong>：面向对象编程</p>
+<p><strong>难度</strong>：中等</p>
+<p>Go 语言中并没有传统的继承机制（如 Java 的 <code>extends</code> 或 C++ 的基类继承），而是通过**组合（Composition）**实现类似继承的功能。这种方式符合 Go 的设计哲学：优先使用组合，而非继承。</p>
+<p>以下是实现继承的方式及相关说明：</p>
+<hr>
+<p><strong>1. 嵌套结构体实现“继承”</strong></p>
+<p>在 Go 中，结构体可以将另一个结构体嵌套为自己的字段，从而实现类似继承的行为。嵌套结构体中的字段和方法会被提升到外部结构体中，可以直接访问和调用。</p>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 父结构体</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Animal</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#a6e22e">Animal</span>) <span style="color:#a6e22e">Speak</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;is making a sound&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 子结构体</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Dog</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Animal</span> <span style="color:#75715e">// 嵌套 Animal，相当于继承</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Breed</span>  <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dog</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Dog</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Animal</span>: <span style="color:#a6e22e">Animal</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Buddy&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Breed</span>:  <span style="color:#e6db74">&#34;Golden Retriever&#34;</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">Speak</span>() <span style="color:#75715e">// 调用嵌套结构体的方法</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;is a&#34;</span>, <span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">Breed</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>输出</strong>：</p>
+
+<blockquote class='book-hint '>
+  <p>Buddy is making a sound
+Buddy is a Golden Retriever</p>
+</blockquote><p><strong>特点</strong>：</p>
+<ul>
+<li>通过嵌套结构体实现了方法和字段的复用。</li>
+<li><code>Dog</code> 结构体直接“继承”了 <code>Animal</code> 的字段 <code>Name</code> 和方法 <code>Speak</code>。</li>
+</ul>
+<hr>
+<p><strong>2. 方法重写</strong></p>
+<p>子结构体可以定义与父结构体相同的方法，从而覆盖嵌套结构体的方法，实现类似方法重写的功能。</p>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">d</span> <span style="color:#a6e22e">Dog</span>) <span style="color:#a6e22e">Speak</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;is barking&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dog</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Dog</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Animal</span>: <span style="color:#a6e22e">Animal</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Buddy&#34;</span>},
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Breed</span>:  <span style="color:#e6db74">&#34;Golden Retriever&#34;</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">Speak</span>() <span style="color:#75715e">// 调用 Dog 的 Speak 方法，而非 Animal 的</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>输出</strong>：</p>
+
+<blockquote class='book-hint '>
+  <p>Buddy is barking</p>
+</blockquote><p><strong>特点：</strong></p>
+<ul>
+<li><code>Dog</code> 的 <code>Speak</code> 方法覆盖了 <code>Animal</code> 的 <code>Speak</code> 方法。</li>
+<li>如果需要调用被覆盖的方法，可以显式调用嵌套结构体的方法，例如 <code>dog.Animal.Speak()</code>。</li>
+</ul>
+<hr>
+<p><strong>3. 接口与组合的结合</strong></p>
+<p>Go 的接口配合组合机制，可以实现类似继承的多态功能。</p>
+<p><strong>示例：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Speaker</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Speak</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Animal</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#a6e22e">Animal</span>) <span style="color:#a6e22e">Speak</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;is making a sound&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Dog</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Animal</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">d</span> <span style="color:#a6e22e">Dog</span>) <span style="color:#a6e22e">Speak</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;is barking&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">makeSound</span>(<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">Speaker</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Speak</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Animal</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Generic Animal&#34;</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Dog</span>{<span style="color:#a6e22e">Animal</span>: <span style="color:#a6e22e">Animal</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Buddy&#34;</span>}}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">makeSound</span>(<span style="color:#a6e22e">a</span>) <span style="color:#75715e">// 调用 Animal 的 Speak</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">makeSound</span>(<span style="color:#a6e22e">d</span>) <span style="color:#75715e">// 调用 Dog 的 Speak</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>输出：</strong></p>
+
+<blockquote class='book-hint '>
+  <p>Generic Animal is making a sound
+Buddy is barking</p>
+</blockquote><p><strong>特点：</strong></p>
+<ul>
+<li>通过接口定义行为（如 <code>Speak</code> 方法）。</li>
+<li>子结构体通过组合和接口实现多态行为。</li>
+</ul>
+<hr>
+<p><strong>4. 匿名组合（匿名字段）与字段提升</strong></p>
+<p>当一个结构体嵌套另一个结构体时，如果嵌套的是匿名字段，那么嵌套结构体的字段和方法会被“提升”为外部结构体的字段和方法。</p>
+<p><strong>示例：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Address</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">City</span>, <span style="color:#a6e22e">State</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span>    <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Address</span> <span style="color:#75715e">// 匿名字段</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Person</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Name</span>:    <span style="color:#e6db74">&#34;Alice&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Address</span>: <span style="color:#a6e22e">Address</span>{<span style="color:#a6e22e">City</span>: <span style="color:#e6db74">&#34;San Francisco&#34;</span>, <span style="color:#a6e22e">State</span>: <span style="color:#e6db74">&#34;CA&#34;</span>},
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;lives in&#34;</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">City</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">State</span>) <span style="color:#75715e">// Address 的字段被提升</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>输出</strong>：</p>
+
+<blockquote class='book-hint '>
+  <p>Alice lives in San Francisco CA</p>
+</blockquote><p><strong>特点：</strong></p>
+<ul>
+<li><code>Person</code> 结构体直接访问 <code>Address</code> 的字段 <code>City</code> 和 <code>State</code>，表现得像继承。</li>
+</ul>
+<hr>
+<p><strong>5. 区别于传统继承</strong></p>
+<p>虽然 Go 的组合机制和传统继承类似，但它并不支持：</p>
+<ul>
+<li><strong>访问控制</strong>：没有 <code>protected</code> 关键字，所有嵌套字段和方法的访问权限取决于其首字母是否大写。</li>
+<li><strong>强制的父子关系</strong>：嵌套结构体是组合关系，而不是严格的父子继承关系。</li>
+<li><strong>多级继承</strong>：嵌套的组合机制更简单，不涉及复杂的继承层级。</li>
+</ul>
+<hr>
+<p><strong>6. 使用场景</strong></p>
+<p>Go 的组合机制更倾向于<strong>灵活复用</strong>，通常会在以下场景中使用：</p>
+<ol>
+<li><strong>复用代码</strong>：通过嵌套结构体共享字段和方法。</li>
+<li><strong>实现多态</strong>：通过接口和组合模拟继承行为。</li>
+<li><strong>解耦设计</strong>：避免传统继承带来的强耦合问题。</li>
+</ol>
+<hr>
+<p><strong>总结</strong></p>
+<ul>
+<li>Go 不支持传统的继承，但可以通过 <strong>结构体嵌套</strong> 和 <strong>接口</strong> 实现类似的功能。</li>
+<li>组合机制更加灵活，减少了传统继承中的复杂性和层级耦合。</li>
+<li>Go 的设计哲学是通过<strong>组合</strong>和<strong>接口</strong>实现代码复用，而不是依赖复杂的继承体系。</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/tcp%E7%AF%87/" class="flex align-center book-icon">
+        <img src="/svg/backward.svg" class="book-icon" alt="Previous" title="TCP篇" />
+        <span>TCP篇</span>
+      </a>
+    
+    </span>
+    <span>
+    
+    </span>
+  </div>
+  
+
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+
+<aside class="book-toc">
+  <div class="book-toc-content">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-和java对比介绍一下go语言的优势和特点">1. 和Java对比，介绍一下go语言的优势和特点</a></li>
+    <li><a href="#2-go包管理的方式有哪些">2. go包管理的方式有哪些？</a></li>
+    <li><a href="#3-go支持重载吗如何在go中实现一个方法的重载">3. Go支持重载吗？如何在Go中实现一个方法的&quot;重载&quot;？</a></li>
+    <li><a href="#4-go语言中如何实现继承">4. Go语言中如何实现继承？</a></li>
+  </ul>
+</nav>
+
+
+
+  </div>
+</aside>
+
+ 
+  </main>
+
+  <footer style="text-align: center; padding: 20px 0; margin-top: 40px;">
+    <p>Copyright © 2025 LHX. All Rights Reserved.</p>
+</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
