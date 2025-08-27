@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  Go语言中栈的实现：Slice还是List？
+  
+  #
+  
+
+
+  前言
+  
+  #
+  
+
+在刷 LeetCode 题目「
+  LC1047. 删除字符串中的所有相邻重复项」时，我遇到了一个典型的栈应用场景。基于之前的学习，我首先使用 Go 的 container/list（双向链表）来模拟栈，但发现执行效率并不理想。
+
+  
+在查阅了执行速度更快的解法后，我发现大家普遍使用 切片 (slice) 来模拟栈。这引发了我的思考：在 Go 语言中，实现栈时应该用 container/list 还是切片？本文将探讨这两种方式的差异与优劣。
+
+  两种实现方式的底层原理
+  
+  #
+  
+
+为了理解它们的差异，我们首先要了解两者在内存中的样子。
+
+  1. 切片 (Slice) - 连续的盒子 📦
+  
+  #
+  
+
+切片 (slice) 的本质是一个动态数组，它的数据存放在一块连续的内存中。就像一个有格子的长条盒子，所有元素都紧密地挨在一起。
+// --- 用切片实现栈 ---
+var stack = []byte{}
+
+// 入栈
+stack = append(stack, &#39;a&#39;)
+
+// 出栈
+stack = stack[:len(stack)-1]
+
+  2. container/list - 分散的车厢 🚂
+  
+  #
+  
+
+container/list 的本质是一个双向链表。它的每个元素（节点）都是一个独立的对象，存放在内存中可能不连续的位置，通过指针相互连接。就像一串火车车厢，每个车厢都知道它的前后车厢是谁。
+// --- 用 list 实现栈 ---
+stackList := list.New()
+
+// 入栈
+stackList.PushBack(&#39;a&#39;)
+
+// 出栈
+stackList.Remove(stackList.Back())
+
+  核心对比：性能与简洁度
+  
+  #
+  
+
+
+  性能对比：为何切片通常更快？
+  
+  #
+  
+
+理论上，两种方式的入栈和出栈操作时间复杂度都是 O(1)。但在实际运行中，切片通常性能更好，这主要得益于“内存局部性”（Memory Locality）。">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://xiaoli-lhx.github.io/go%E8%AF%AD%E8%A8%80/go%E5%9F%BA%E7%A1%80/go%E8%AF%AD%E8%A8%80%E6%A8%A1%E6%8B%9F%E6%A0%88/">
+  <meta property="og:site_name" content="Blog">
+  <meta property="og:title" content="Go语言中栈的实现：Slice还是List？">
+  <meta property="og:description" content="Go语言中栈的实现：Slice还是List？#前言#在刷 LeetCode 题目「LC1047. 删除字符串中的所有相邻重复项」时，我遇到了一个典型的栈应用场景。基于之前的学习，我首先使用 Go 的 container/list（双向链表）来模拟栈，但发现执行效率并不理想。 在查阅了执行速度更快的解法后，我发现大家普遍使用 切片 (slice) 来模拟栈。这引发了我的思考：在 Go 语言中，实现栈时应该用 container/list 还是切片？本文将探讨这两种方式的差异与优劣。
+两种实现方式的底层原理#为了理解它们的差异，我们首先要了解两者在内存中的样子。
+1. 切片 (Slice) - 连续的盒子 📦#切片 (slice) 的本质是一个动态数组，它的数据存放在一块连续的内存中。就像一个有格子的长条盒子，所有元素都紧密地挨在一起。
+// --- 用切片实现栈 --- var stack = []byte{} // 入栈 stack = append(stack, &#39;a&#39;) // 出栈 stack = stack[:len(stack)-1] 2. container/list - 分散的车厢 🚂#container/list 的本质是一个双向链表。它的每个元素（节点）都是一个独立的对象，存放在内存中可能不连续的位置，通过指针相互连接。就像一串火车车厢，每个车厢都知道它的前后车厢是谁。
+// --- 用 list 实现栈 --- stackList := list.New() // 入栈 stackList.PushBack(&#39;a&#39;) // 出栈 stackList.Remove(stackList.Back()) 核心对比：性能与简洁度#性能对比：为何切片通常更快？#理论上，两种方式的入栈和出栈操作时间复杂度都是 O(1)。但在实际运行中，切片通常性能更好，这主要得益于“内存局部性”（Memory Locality）。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="go语言">
+    <meta property="article:published_time" content="2025-08-27T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-27T00:00:00+00:00">
+<title>Go语言中栈的实现：Slice还是List？ | Blog</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://xiaoli-lhx.github.io/go%E8%AF%AD%E8%A8%80/go%E5%9F%BA%E7%A1%80/go%E8%AF%AD%E8%A8%80%E6%A8%A1%E6%8B%9F%E6%A0%88/">
+<link rel="stylesheet" href="/book.min.ce742184041b67827be505801d71b6b40c09608dfb292033ea54dbbc1d71a174.css" integrity="sha256-znQhhAQbZ4J75QWAHXG2tAwJYI37KSAz6lTbvB1xoXQ=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.5754a52f86985d41a83cf9474a4c54cc4c29d0d9006f7450bb02c12690a1e8ee.js" integrity="sha256-V1SlL4aYXUGoPPlHSkxUzEwp0NkAb3RQuwLBJpCh6O4=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body dir="ltr" class="book-kind-page book-type-go语言">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Blog</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ece2958ce52732215c05ee4fd8e37c4b" class="toggle"  />
+    <label for="section-ece2958ce52732215c05ee4fd8e37c4b" class="flex">
+      <a role="button" class="flex-auto ">计网</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2998acf51f5f0061bff7de261b935769" class="toggle"  />
+    <label for="section-2998acf51f5f0061bff7de261b935769" class="flex">
+      <a role="button" class="flex-auto ">基础篇</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/%E8%AE%A1%E7%BD%91/%E5%9F%BA%E7%A1%80%E7%AF%87/tcp_ip%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E5%87%A0%E5%B1%82/" class="">TCP/IP网络模型有哪几层？</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-663286454c4cd9ce11659bd2eb980fee" class="toggle"  />
+    <label for="section-663286454c4cd9ce11659bd2eb980fee" class="flex">
+      <a role="button" class="flex-auto ">TCP篇</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/tcp%E7%AF%87/" class="">TCP篇</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-67b43edca1c269c7246a75d4308d3b1b" class="toggle" checked />
+    <label for="section-67b43edca1c269c7246a75d4308d3b1b" class="flex">
+      <a role="button" class="flex-auto ">Go语言</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-770547d614dac05a040d1a3ecfcd842c" class="toggle" checked />
+    <label for="section-770547d614dac05a040d1a3ecfcd842c" class="flex">
+      <a role="button" class="flex-auto ">Go基础</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/go%E8%AF%AD%E8%A8%80/go%E5%9F%BA%E7%A1%80/go%E5%9F%BA%E7%A1%80/" class="">Go语言基础</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/go%E8%AF%AD%E8%A8%80/go%E5%9F%BA%E7%A1%80/go%E8%AF%AD%E8%A8%80%E6%A8%A1%E6%8B%9F%E6%A0%88/" class="active">Go语言中栈的实现：Slice还是List？</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Go语言中栈的实现：Slice还是List？</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#两种实现方式的底层原理">两种实现方式的底层原理</a>
+      <ul>
+        <li><a href="#1-切片-slice---连续的盒子-">1. 切片 (Slice) - 连续的盒子 📦</a></li>
+        <li><a href="#2-containerlist---分散的车厢-">2. container/list - 分散的车厢 🚂</a></li>
+      </ul>
+    </li>
+    <li><a href="#核心对比性能与简洁度">核心对比：性能与简洁度</a>
+      <ul>
+        <li><a href="#性能对比为何切片通常更快">性能对比：为何切片通常更快？</a></li>
+        <li><a href="#代码对比为何切片更地道">代码对比：为何切片更地道？</a></li>
+      </ul>
+    </li>
+    <li><a href="#结论优先使用切片">结论：优先使用切片</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="go语言中栈的实现slice还是list">
+  Go语言中栈的实现：Slice还是List？
+  
+  <a class="anchor" href="#go%e8%af%ad%e8%a8%80%e4%b8%ad%e6%a0%88%e7%9a%84%e5%ae%9e%e7%8e%b0slice%e8%bf%98%e6%98%aflist">#</a>
+  
+</h1>
+<h2 id="前言">
+  前言
+  
+  <a class="anchor" href="#%e5%89%8d%e8%a8%80">#</a>
+  
+</h2>
+<p>在刷 LeetCode 题目「
+  <a href="https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string/description/">LC1047. 删除字符串中的所有相邻重复项</a>」时，我遇到了一个典型的栈应用场景。基于之前的学习，我首先使用 Go 的 <code>container/list</code>（双向链表）来模拟栈，但发现执行效率并不理想。
+
+  <img src="/images/go-stack.jpg" alt="go-stack.jpg" /></p>
+<p>在查阅了执行速度更快的解法后，我发现大家普遍使用 <strong>切片 (<code>slice</code>)</strong> 来模拟栈。这引发了我的思考：在 Go 语言中，实现栈时应该用 <code>container/list</code> 还是切片？本文将探讨这两种方式的差异与优劣。</p>
+<h2 id="两种实现方式的底层原理">
+  两种实现方式的底层原理
+  
+  <a class="anchor" href="#%e4%b8%a4%e7%a7%8d%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f%e7%9a%84%e5%ba%95%e5%b1%82%e5%8e%9f%e7%90%86">#</a>
+  
+</h2>
+<p>为了理解它们的差异，我们首先要了解两者在内存中的样子。</p>
+<h3 id="1-切片-slice---连续的盒子-">
+  1. 切片 (Slice) - 连续的盒子 📦
+  
+  <a class="anchor" href="#1-%e5%88%87%e7%89%87-slice---%e8%bf%9e%e7%bb%ad%e7%9a%84%e7%9b%92%e5%ad%90-">#</a>
+  
+</h3>
+<p><strong>切片 (<code>slice</code>)</strong> 的本质是一个<strong>动态数组</strong>，它的数据存放在一块<strong>连续的内存</strong>中。就像一个有格子的长条盒子，所有元素都紧密地挨在一起。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// --- 用切片实现栈 ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stack</span> = []<span style="color:#66d9ef">byte</span>{}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 入栈</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stack</span> = append(<span style="color:#a6e22e">stack</span>, <span style="color:#e6db74">&#39;a&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 出栈</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stack</span> = <span style="color:#a6e22e">stack</span>[:len(<span style="color:#a6e22e">stack</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span></code></pre></div><h3 id="2-containerlist---分散的车厢-">
+  2. container/list - 分散的车厢 🚂
+  
+  <a class="anchor" href="#2-containerlist---%e5%88%86%e6%95%a3%e7%9a%84%e8%bd%a6%e5%8e%a2-">#</a>
+  
+</h3>
+<p><strong><code>container/list</code></strong> 的本质是一个<strong>双向链表</strong>。它的每个元素（节点）都是一个独立的对象，存放在内存中可能不连续的位置，通过指针相互连接。就像一串火车车厢，每个车厢都知道它的前后车厢是谁。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// --- 用 list 实现栈 ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stackList</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 入栈</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stackList</span>.<span style="color:#a6e22e">PushBack</span>(<span style="color:#e6db74">&#39;a&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 出栈</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stackList</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">stackList</span>.<span style="color:#a6e22e">Back</span>())
+</span></span></code></pre></div><h2 id="核心对比性能与简洁度">
+  核心对比：性能与简洁度
+  
+  <a class="anchor" href="#%e6%a0%b8%e5%bf%83%e5%af%b9%e6%af%94%e6%80%a7%e8%83%bd%e4%b8%8e%e7%ae%80%e6%b4%81%e5%ba%a6">#</a>
+  
+</h2>
+<h3 id="性能对比为何切片通常更快">
+  性能对比：为何切片通常更快？
+  
+  <a class="anchor" href="#%e6%80%a7%e8%83%bd%e5%af%b9%e6%af%94%e4%b8%ba%e4%bd%95%e5%88%87%e7%89%87%e9%80%9a%e5%b8%b8%e6%9b%b4%e5%bf%ab">#</a>
+  
+</h3>
+<p>理论上，两种方式的入栈和出栈操作时间复杂度都是 O(1)。但在实际运行中，<strong>切片通常性能更好</strong>，这主要得益于“<strong>内存局部性</strong>”（Memory Locality）。</p>
+<ul>
+<li><strong>切片</strong>：由于内存连续，CPU在访问栈顶元素时，可以把邻近的数据也预加载到高速缓存中。这使得连续的<code>push</code>和<code>pop</code>操作命中缓存的概率极高，速度飞快。</li>
+<li><strong><code>list</code></strong>：由于节点在内存中是分散的，CPU访问一个节点后，需要通过指针跳转到下一个，这容易导致“缓存未命中”（Cache Miss），从而降低了执行效率。</li>
+</ul>
+<h3 id="代码对比为何切片更地道">
+  代码对比：为何切片更地道？
+  
+  <a class="anchor" href="#%e4%bb%a3%e7%a0%81%e5%af%b9%e6%af%94%e4%b8%ba%e4%bd%95%e5%88%87%e7%89%87%e6%9b%b4%e5%9c%b0%e9%81%93">#</a>
+  
+</h3>
+<p>从代码风格上看，<strong>使用切片更符合Go社区的习惯</strong>，代码也更简洁。</p>
+<p>切片的操作是语言内置的，语法直接明了。而 <code>container/list</code> 则需要通过调用一系列方法来完成，代码显得稍长，可读性略逊一筹。</p>
+<h2 id="结论优先使用切片">
+  结论：优先使用切片
+  
+  <a class="anchor" href="#%e7%bb%93%e8%ae%ba%e4%bc%98%e5%85%88%e4%bd%bf%e7%94%a8%e5%88%87%e7%89%87">#</a>
+  
+</h2>
+<p>综上所述，我们可以得出一个清晰的结论：</p>
+<ul>
+<li><strong>性能</strong>: 切片因其连续的内存布局，通常比<code>list</code>更快。</li>
+<li><strong>简洁度</strong>: 切片的代码更短小，更符合Go的编程风格。</li>
+</ul>
+<p>因此，<strong>在Go里遇到栈相关的问题，除非有特殊需求，否则应优先使用切片来模拟。这是最常见也是最高效的做法。</strong></p>
+<p>唯一的例外是，当你需要的不仅仅是一个栈，而是一个需要在<strong>中间</strong>频繁插入或删除元素的数据结构时，<code>container/list</code>的优势才能体现出来。但对于纯粹的栈操作，切片是毫无疑问的更优选。</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/go%E8%AF%AD%E8%A8%80/go%E5%9F%BA%E7%A1%80/go%E5%9F%BA%E7%A1%80/" class="flex align-center book-icon">
+        <img src="/svg/backward.svg" class="book-icon" alt="Previous" title="Go语言基础" />
+        <span>Go语言基础</span>
+      </a>
+    
+    </span>
+    <span>
+    
+    </span>
+  </div>
+  
+
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+
+<aside class="book-toc">
+  <div class="book-toc-content">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#两种实现方式的底层原理">两种实现方式的底层原理</a>
+      <ul>
+        <li><a href="#1-切片-slice---连续的盒子-">1. 切片 (Slice) - 连续的盒子 📦</a></li>
+        <li><a href="#2-containerlist---分散的车厢-">2. container/list - 分散的车厢 🚂</a></li>
+      </ul>
+    </li>
+    <li><a href="#核心对比性能与简洁度">核心对比：性能与简洁度</a>
+      <ul>
+        <li><a href="#性能对比为何切片通常更快">性能对比：为何切片通常更快？</a></li>
+        <li><a href="#代码对比为何切片更地道">代码对比：为何切片更地道？</a></li>
+      </ul>
+    </li>
+    <li><a href="#结论优先使用切片">结论：优先使用切片</a></li>
+  </ul>
+</nav>
+
+
+
+  </div>
+</aside>
+
+ 
+  </main>
+
+  <footer style="text-align: center; padding: 20px 0; margin-top: 40px;">
+    <p>Copyright © 2025 LHX. All Rights Reserved.</p>
+</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
