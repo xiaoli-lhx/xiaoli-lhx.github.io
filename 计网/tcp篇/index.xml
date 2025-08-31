@@ -6,7 +6,7 @@
     <description>Recent content in TCP篇 on Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 23 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TCP篇</title>
@@ -14,6 +14,13 @@
       <pubDate>Sat, 23 Aug 2025 00:00:00 +0000</pubDate>
       <guid>https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/tcp%E7%AF%87/</guid>
       <description>&lt;h1 id=&#34;udp与tcp协议&#34;&gt;&#xD;&#xA;  UDP与TCP协议&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#udp%e4%b8%8etcp%e5%8d%8f%e8%ae%ae&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;udp协议&#34;&gt;&#xD;&#xA;  UDP协议&#xD;&#xA;  &#xD;&#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#udp%e5%8d%8f%e8%ae%ae&#34;&gt;#&lt;/a&gt;&#xD;&#xA;  &#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;UDP（User Datagram Protocol，用户数据报协议）是一种无连接的传输层协议，它不保证数据可靠到达，也不保证数据顺序到达。它只提供一种简单的面向数据报的通信方式。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>这是一个测试页面</title>
+      <link>https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/test-page/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/%E8%AE%A1%E7%BD%91/tcp%E7%AF%87/test-page/</guid>
+      <description>&lt;p&gt;这是测试页面的内容。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

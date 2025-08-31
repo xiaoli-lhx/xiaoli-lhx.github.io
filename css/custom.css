@@ -32,3 +32,47 @@ main.container {
     flex-grow: 1;
     margin: 0 auto; /* 新增：让主内容区在页面上水平居中 */
 }
+
+/* 标签区域的样式 */
+.post-tags {
+    margin-top: 2rem; /* 和上方内容隔开一些距离 */
+    padding-top: 1rem;
+    border-top: 1px solid #eee; /* 添加一条分割线 */
+}
+
+/* 单个标签的样式 */
+.post-tags a {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.5rem;
+    background-color: #f0f0f0; /* 淡灰色背景 */
+    color: #555;
+    border-radius: 4px; /* 圆角 */
+    font-size: 0.85em;
+    text-decoration: none;
+}
+
+/* 鼠标悬停在标签上时的样式 */
+.post-tags a:hover {
+    background-color: #007bff; /* 蓝色高亮 */
+    color: white;
+}
+/* 标题下方元信息容器的样式 */
+.post-meta {
+    font-size: 0.9em;
+    color: #6c757d; /* 灰色文字 */
+    margin-top: -1rem; /* 向上移动，离标题更近 */
+    margin-bottom: 2rem; /* 和下方正文隔开距离 */
+}
+
+/* 元信息内部项目的样式 */
+.post-meta span {
+    margin-right: 1.5rem; /* 让日期和标签之间有点距离 */
+}
+
+ /*移除之前为标签添加的边框和背景 */
+.post-tags {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}

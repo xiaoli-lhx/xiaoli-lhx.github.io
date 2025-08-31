@@ -6,6 +6,77 @@
     <description>Recent content in Tags on Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
+    <lastBuildDate>Sat, 30 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://xiaoli-lhx.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Debug</title>
+      <link>https://xiaoli-lhx.github.io/tags/debug/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/debug/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Go</title>
+      <link>https://xiaoli-lhx.github.io/tags/go/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LeetCode</title>
+      <link>https://xiaoli-lhx.github.io/tags/leetcode/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/leetcode/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sort.Slice</title>
+      <link>https://xiaoli-lhx.github.io/tags/sort.slice/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/sort.slice/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tag-A</title>
+      <link>https://xiaoli-lhx.github.io/tags/tag-a/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/tag-a/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tag-B</title>
+      <link>https://xiaoli-lhx.github.io/tags/tag-b/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/tag-b/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Test</title>
+      <link>https://xiaoli-lhx.github.io/tags/test/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/test/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>堆</title>
+      <link>https://xiaoli-lhx.github.io/tags/%E5%A0%86/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/%E5%A0%86/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>数据结构</title>
+      <link>https://xiaoli-lhx.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>算法</title>
+      <link>https://xiaoli-lhx.github.io/tags/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://xiaoli-lhx.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>
